@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:lab_week6/lab6/EX-2-START-CODE/dto/post_dto.dart';
 import '../model/post.dart';
 import 'post_repository.dart';
 
@@ -11,7 +12,7 @@ class HttpPostsRepository implements PostRepository {
     final response = await http.get(Uri.parse('$apiUrl/$postId'));
 
     if (response.statusCode == 200) {
-      return Post.fromJson(jsonDecode(response.body));
+      return Post.fromDTO(jsonDecode(response.body));
     } else {
       throw Exception("Failed to load post");
     }
@@ -23,7 +24,7 @@ class HttpPostsRepository implements PostRepository {
 
     if (response.statusCode == 200) {
       List<dynamic> jsonList = jsonDecode(response.body);
-      return jsonList.map((json) => Post.fromJson(json)).toList();
+      return jsonList.map((json) => Post.fromDTO(PostDTO.fromJson(json))).toList();
     } else {
       throw Exception("Failed to load posts");
     }

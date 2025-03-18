@@ -1,3 +1,5 @@
+import 'package:lab_week6/lab6/EX-2-START-CODE/dto/post_dto.dart';
+
 class Post {
   final int id;
   final String title;
@@ -6,12 +8,11 @@ class Post {
   Post({required this.id, required this.title, required this.description});
 
   // Get data from json
-   factory Post.fromJson(Map<String, dynamic> json) {
-    assert(json['id'] is int);
+  factory Post.fromDTO(PostDTO dto) {
     return Post(
-      id: json['id'],
-      title: json['title'] ?? "No Title",
-      description: json['body'] ?? "No Description",
+      id: dto.id,
+      title: dto.title,
+      description: dto.description,
     );
   }
 }
