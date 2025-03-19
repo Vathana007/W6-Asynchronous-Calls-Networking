@@ -25,6 +25,27 @@ class _CourseScoreFormState extends State<CourseScoreForm> {
     }
   }
 
+  String? validateName(String? value) {
+    if (value == null ||
+        value.isEmpty ||
+        value.trim().length <= 1 ||
+        value.trim().length > 50) {
+      return 'Must be between 1 and 50 characters.';
+    }
+    return null;
+  }
+
+  String? validateScore(String? value) {
+    if (value == null ||
+        value.isEmpty ||
+        double.tryParse(value) == null ||
+        double.tryParse(value)! < 0 ||
+        double.tryParse(value)! > 100) {
+      return 'Must be a score bteween 0 and 100';
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,11 +63,13 @@ class _CourseScoreFormState extends State<CourseScoreForm> {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Student Name'),
+                validator: validateName,
                 onSaved: (value) => _studentName = value!,
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Score'),
                 keyboardType: TextInputType.number,
+                validator: validateScore,
                 onSaved: (value) => _studentScore = double.parse(value!),
               ),
               SizedBox(height: 12),
